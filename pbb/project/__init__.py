@@ -13,7 +13,6 @@ from project import resources
 from project.config import Config, file_handler
 from project.handlers.exception import handle_exception, handle_http_exception
 from project.repository import db
-from project.repository.seeds import seeds
 
 migrate = Migrate()
 
@@ -24,8 +23,6 @@ def create_app(config=Config):
 
     db.init_app(app)
     migrate.init_app(app, db)
-
-    app.cli.add_command(seeds)
 
     app.register_blueprint(resources.bp)
 

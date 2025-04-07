@@ -4,6 +4,7 @@ from datetime import datetime
 from uuid import uuid4
 
 from sqlalchemy import (
+    Boolean,
     Column,
     DateTime,
     Enum,
@@ -45,6 +46,8 @@ class ExchangeUser(BaseModel):
 
     token = Column(String, nullable=False, unique=True)
     exchange_id = Column(UUID(as_uuid=True), ForeignKey("exchange.id"), nullable=False)
+    private_key = Column(String, nullable=True)
+    status = Column(Boolean, nullable=False, default=False)
 
     exchange = relationship(
         "Exchange",
