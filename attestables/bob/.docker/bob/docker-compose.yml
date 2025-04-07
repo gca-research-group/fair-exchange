@@ -1,0 +1,33 @@
+services:
+  bob_database:
+    container_name: bob_database
+    image: postgres:17-alpine
+    ports:
+      - "5433:5432"
+    user: postgres
+    volumes:
+      - bob_database_volume:/var/lib/postgresql/data
+    env_file:
+      - ./env/.env.database
+    networks:
+      - bob_network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "-d", "bob_db"]
+      interval: 30s
+      timeout: 60s
+      retries: 5
+      start_period: 80s
+
+volumes:
+  bob_database_volume:
+    name: bob_database_volume
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./volumes/postgres/data
+
+networks:
+  bob_network:
+    name: bob_network
