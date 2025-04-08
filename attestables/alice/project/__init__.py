@@ -24,7 +24,6 @@ def create_app(config=Config):
     db.init_app(app)
     migrate.init_app(app, db)
 
-
     app.register_blueprint(resources.bp)
 
     app.logger.addHandler(file_handler)
