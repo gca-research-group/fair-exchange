@@ -32,12 +32,12 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: "{{ _.baseUrl }}/healthcheck"
+      - url: "{{ _.baseUrl }}/api/healthcheck"
         name: 00 - Healthcheck
         meta:
           id: req_8c0b785a759044908bd66432a319d5c7
           created: 1743346457673
-          modified: 1744114802764
+          modified: 1744142855446
           isPrivate: false
           sortKey: -1743343512384
         method: GET
@@ -52,12 +52,12 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: http://localhost:5002/api{{ _.uri }}{{ _.exchangeToken }}/handshake/
+      - url: http://localhost:5002/{{ _.uri }}{{ _.exchangeToken }}/handshake/
         name: 02 - Handshake
         meta:
           id: req_b29bc0295ea94b13bdd08ccf46226fb6
           created: 1744053049714
-          modified: 1744117226719
+          modified: 1744142941205
           isPrivate: false
           sortKey: -1742797831742
         method: POST

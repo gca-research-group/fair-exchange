@@ -100,10 +100,10 @@ def send(exchange_token: str):
     with open(f"{base_dir}/encrypted.bin", "wb") as encrypted_file:
         encrypted_file.write(encrypted_item)
 
-    with open(f"{base_dir}/signature", "wb") as encrypted_file:
+    with open(f"{base_dir}/signature.bin", "wb") as encrypted_file:
         encrypted_file.write(signature)
 
-    with open(f"{base_dir}/item", "w") as item_file:
+    with open(f"{base_dir}/item.txt", "w") as item_file:
         item_file.write(item)
 
     encrypted_b64 = base64.b64encode(encrypted_item).decode()
@@ -180,7 +180,7 @@ def item(exchange_token: str):
             )
         )
 
-    with open(os.path.join(base_dir, "signature"), "wb") as file:
+    with open(os.path.join(base_dir, "signature.bin"), "wb") as file:
         file.write(signature)
 
     return Response(status=200)

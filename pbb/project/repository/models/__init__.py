@@ -44,7 +44,7 @@ class Exchange(BaseModel):
 class ExchangeUser(BaseModel):
     __tablename__ = "exchange_user"
 
-    token = Column(String, nullable=False, unique=True)
+    token = Column(String, nullable=False)
     exchange_id = Column(UUID(as_uuid=True), ForeignKey("exchange.id"), nullable=False)
     private_key = Column(String, nullable=True)
     status = Column(Boolean, nullable=False, default=False)
@@ -53,6 +53,10 @@ class ExchangeUser(BaseModel):
         "Exchange",
         backref="exchange_user__exchange",
         foreign_keys=[exchange_id],
+    )
+
+    __table_args__ = (
+        db.UniqueConstraint("token", "exchange_id", name="uq_exchange_user_token_exchange_id"),
     )
 
 
