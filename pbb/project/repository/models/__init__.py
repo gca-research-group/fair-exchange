@@ -45,8 +45,8 @@ class ExchangeUser(BaseModel):
     __tablename__ = "exchange_user"
 
     token = Column(String, nullable=False)
+    name = Column(String, nullable=False)
     exchange_id = Column(UUID(as_uuid=True), ForeignKey("exchange.id"), nullable=False)
-    private_key = Column(String, nullable=True)
     status = Column(Boolean, nullable=False, default=False)
 
     exchange = relationship(
@@ -56,7 +56,29 @@ class ExchangeUser(BaseModel):
     )
 
     __table_args__ = (
-        db.UniqueConstraint("token", "exchange_id", name="uq_exchange_user_token_exchange_id"),
+        db.UniqueConstraint(
+            "token", "exchange_id", name="uq_exchange_user_token_exchange_id"
+        ),
+    )
+
+
+@dataclass
+class ExchangeUserAcceptance(BaseModel):
+    __tablename__ = "exchange_user_acceptance"
+    exchange_id = Column(UUID(as_uuid=True), ForeignKey("exchange.id"), nullable=False)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("exchange_user.id"), nullable=False)
+    status = Column(Boolean, nullable=False, default=False)
+
+    exchange = relationship(
+        "Exchange",
+        backref="exchange_user_acceptance__exchange",
+        foreign_keys=[exchange_id],
+    )
+
+    exchange_user = relationship(
+        "ExchangeUser",
+        backref="exchange_user_acceptance__exchange_user",
+        foreign_keys=[user_id],
     )
 
 
