@@ -1,0 +1,607 @@
+type: collection.insomnia.rest/5.0
+name: Fair Exchange
+meta:
+  id: wrk_bd368529e37b429099a78f12d1174f93
+  created: 1743343450804
+  modified: 1744051379155
+collection:
+  - name: App B
+    meta:
+      id: fld_aa86dcb61818418c8583a0bd8c2afb5f
+      created: 1743343485505
+      modified: 1748970774363
+      sortKey: -1743343485505
+    children:
+      - name: Handshake
+        meta:
+          id: fld_234271f63ab14025b588f3f8df3f2655
+          created: 1746554957943
+          modified: 1746555136521
+          sortKey: -1746554957943
+        children:
+          - url: "{{ _.baseUrl }}{{ _.uri }}"
+            name: 01 - Create
+            meta:
+              id: req_14c2948b71cc43b882c7a5b7d043af40
+              created: 1743343512283
+              modified: 1746554976561
+              isPrivate: false
+              sortKey: -1746554966110
+            method: POST
+            headers:
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: "{{ _.baseUrl }}/api/healthcheck"
+            name: 00 - Healthcheck
+            meta:
+              id: req_8c0b785a759044908bd66432a319d5c7
+              created: 1743346457673
+              modified: 1746554966300
+              isPrivate: false
+              sortKey: -1746554966210
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: "{{ _.baseUrl }}{{ _.uri }}{{ _.exchangeToken }}/public-key"
+            name: 02 - Send the public key
+            meta:
+              id: req_b29bc0295ea94b13bdd08ccf46226fb6
+              created: 1744053049714
+              modified: 1748893658858
+              isPrivate: false
+              sortKey: -1746554966010
+            method: POST
+            headers:
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: "{{partnerUrl}}{{ _.uri }}{{ _.exchangeToken }}/public-key"
+            name: 02 - Post to Alice
+            meta:
+              id: req_c580aa5eea4b4e1fb3aed348ef4bfae9
+              created: 1748893166305
+              modified: 1748893169089
+              isPrivate: false
+              sortKey: -1746554966060
+            method: POST
+            headers:
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+      - name: Store
+        meta:
+          id: fld_e21cec9e5937434ba6b462ce4d940fc9
+          created: 1746555080848
+          modified: 1746555182932
+          sortKey: -1742490886437.125
+        children:
+          - url: "{{ _.baseUrl }}{{ _.uri }}{{ _.exchangeToken }}/send-item"
+            name: 03 - Send the item to Alice
+            meta:
+              id: req_5a55403ffca74cb39e86d0c0265ea526
+              created: 1744054460665
+              modified: 1748884433461
+              isPrivate: false
+              sortKey: -1746555186159
+            method: POST
+            headers:
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: "{{ _.pbbUrl }}/api/exchange/"
+            name: 05 - Register the exchange on the PBB
+            meta:
+              id: req_bc3f4821355049bdb3bf5014d707bae5
+              created: 1744114068506
+              modified: 1748970587241
+              isPrivate: false
+              sortKey: -1746555186059
+            method: POST
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                	"exchange_token": "{{ _.exchangeToken }}",
+                	"user_token": "{{ _.userToken }}",
+                	"user_name": "appB"
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: "{{ _.pbbUrl }}/api/exchange/{{ _.exchangeToken }}/user/{{ _.userToken }}"
+            name: 05 - Register the user on the PBB
+            meta:
+              id: req_206a6a5961ab49eeb3854f66bd96a55b
+              created: 1748952042731
+              modified: 1748970582865
+              isPrivate: false
+              sortKey: -1746555076134.5
+            method: POST
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                	"user_name": "appB"
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+      - name: Verify
+        meta:
+          id: fld_811f96571b9448b8bf66ec1eff36ca1e
+          created: 1746555199525
+          modified: 1746555210633
+          sortKey: -1742337413734.6875
+        children:
+          - url: "{{ _.pbbUrl }}/api/exchange/{{ _.exchangeToken }}/{{ _.userToken
+              }}/accept"
+            name: 10 - Accept the exchange
+            meta:
+              id: req_c2cd2b3314c140caaece9faf489c1157
+              created: 1744123787281
+              modified: 1748970721432
+              isPrivate: false
+              sortKey: -1746555231806
+            method: PUT
+            headers:
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: "{{ _.pbbUrl }}/api/exchange/{{ _.exchangeToken }}/{{ _.userToken
+              }}/reject"
+            name: 10 - Reject the exchange
+            meta:
+              id: req_4c0214487be946d29e3adf3a8c6b71d9
+              created: 1744123912878
+              modified: 1746555245860
+              isPrivate: false
+              sortKey: -1746555231706
+            method: PUT
+            body:
+              mimeType: application/octet-stream
+              fileName: C:\Users\teles\Documents\fair-exchange-v2\attestables\bob\project\attestable\13f3cb26-e3a7-413e-a500-fccc7e8cd14e\private_key.pem
+            headers:
+              - name: Content-Type
+                value: application/x-x509-ca-cert
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: "{{ _.baseUrl }}{{ _.uri }}{{ _.exchangeToken }}"
+            name: 00 - Query the exchange
+            meta:
+              id: req_be8e3a9d722a48adb223961a819e4d4b
+              created: 1748952147067
+              modified: 1748952309072
+              isPrivate: false
+              sortKey: -1746555231906
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+      - url: "{{ _.baseUrl }}{{ _.uri }}5e8f33f3-2aed-4a75-be0f-af2817a86088"
+        name: 00 - Query the exchange
+        meta:
+          id: req_b25474d001884fec9f3789ef7ab7baa1
+          created: 1744116765820
+          modified: 1748893423158
+          isPrivate: false
+          sortKey: -1746554958043
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+    environment:
+      baseUrl: http://localhost:7000
+      partnerUrl: http://localhost:6000
+      pbbUrl: http://localhost:5000
+      uri: /api/exchange/
+      exchangeToken: b98a5ab0-6478-4415-96a9-670c203d8d93
+      userToken: "{% response 'body', 'req_14c2948b71cc43b882c7a5b7d043af40',
+        'b64::JC51c2VyX3Rva2Vu::46b', 'never', 60 %}"
+  - name: App A
+    meta:
+      id: fld_bf1ce118a5ec44b68e0075b29b4ab1ed
+      created: 1747056548774
+      modified: 1748970765980
+      sortKey: -1747056548774
+    children:
+      - name: Handshake
+        meta:
+          id: fld_67097f5523564c60988d8230ed22d661
+          created: 1746555660234
+          modified: 1747056595951
+          sortKey: -1747056559639
+        children:
+          - url: "{{ _.baseUrl }}{{ _.uri }}"
+            name: 01 - Create
+            meta:
+              id: req_4f632c87a9f94195abb87dcb1540f84e
+              created: 1746555660235
+              modified: 1746555660235
+              isPrivate: false
+              sortKey: -1746554966110
+            method: POST
+            headers:
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: "{{ _.baseUrl }}/api/healthcheck"
+            name: 00 - Healthcheck
+            meta:
+              id: req_7a51e9a544c24ae8a87d277f3e55c60c
+              created: 1746555660236
+              modified: 1746555660236
+              isPrivate: false
+              sortKey: -1746554966210
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: "{{ _.baseUrl }}{{ _.uri }}{{ _.exchangeToken }}/public-key"
+            name: 03 - Send the public key
+            meta:
+              id: req_bb039d6373204c3da60c65ff95c8bf47
+              created: 1746555660237
+              modified: 1748951518920
+              isPrivate: false
+              sortKey: -1746554966010
+            method: POST
+            headers:
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: "{{ _.partnerUrl }}{{ _.uri }}{{ _.exchangeToken }}/handshake"
+            name: 02 - Post to Bob
+            meta:
+              id: req_9832dee92c4e48ff9d4acabbaed189e2
+              created: 1748893057900
+              modified: 1748893618029
+              isPrivate: false
+              sortKey: -1746554966060
+            method: POST
+            headers:
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+      - name: Store
+        meta:
+          id: fld_b53222e65b9644ea8d906c795313195a
+          created: 1746555660239
+          modified: 1747056580889
+          sortKey: -1747056559614
+        children:
+          - url: "{{ _.baseUrl }}{{ _.uri }}{{ _.exchangeToken }}/send-item"
+            name: 04 - Send the item to Bob
+            meta:
+              id: req_0b20a3530fa44562bca0a40243809726
+              created: 1746555660239
+              modified: 1748951528216
+              isPrivate: false
+              sortKey: -1746555186159
+            method: POST
+            headers:
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: "{{ _.pbbUrl }}/api/exchange/"
+            name: 05 - Register the exchange on the PBB
+            meta:
+              id: req_43231eeffeef4f5394e7502461188c52
+              created: 1746555660240
+              modified: 1748970530933
+              isPrivate: false
+              sortKey: -1746555186059
+            method: POST
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                	"exchange_token": "{{ _.exchangeToken }}",
+                	"user_token": "{{ _.userToken }}",
+                	"user_name": "appA"
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: "{{ _.pbbUrl }}/api/exchange/{{ _.exchangeToken }}/user/{{ _.userToken }}"
+            name: 05 - Register the user on the PBB
+            meta:
+              id: req_a7be9c51e0d84fd6966e15fba946c252
+              created: 1748952102810
+              modified: 1748970552245
+              isPrivate: false
+              sortKey: -1746555185959
+            method: POST
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                	"user_name": "appA"
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+      - name: Verify
+        meta:
+          id: fld_75b76c1735e34561a01c4f4a079dbc50
+          created: 1746555660242
+          modified: 1748951392940
+          sortKey: -1747056559607.75
+        children:
+          - url: "{{ _.pbbUrl }}/api/exchange/{{ _.exchangeToken }}/{{ _.userToken
+              }}/accept"
+            name: 10 - Accept the exchange
+            meta:
+              id: req_27d11e2f5e3444c193ab88ae8c35ecca
+              created: 1746555660242
+              modified: 1748952955126
+              isPrivate: false
+              sortKey: -1746555231806
+            method: PUT
+            headers:
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: "{{ _.pbbUrl }}/api/exchange/{{ _.exchangeToken }}/{{ _.userToken
+              }}/reject"
+            name: 10 - Reject the exchange
+            meta:
+              id: req_4b6fe17b8d1248508c4e6d6b547bc2f7
+              created: 1746555660243
+              modified: 1748971951873
+              isPrivate: false
+              sortKey: -1746555231706
+            method: PUT
+            headers:
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: "{{ _.baseUrl }}{{ _.uri }}{{ _.exchangeToken }}"
+            name: 00 - Query the exchange
+            meta:
+              id: req_bfb5f91dc3e24a52829cf89e2395f894
+              created: 1746555660244
+              modified: 1748951260746
+              isPrivate: false
+              sortKey: -1746555231906
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+      - name: Retreive
+        meta:
+          id: fld_1df286dc01614eb6b70c2a41310647c8
+          created: 1748951325136
+          modified: 1748951408819
+          sortKey: -1747056559601.5
+        children:
+          - url: "{{ _.pbbUrl }}{{ _.uri }}{{ _.exchangeToken }}/acceptance"
+            name: 00 - Query the acceptance queue
+            meta:
+              id: req_0ea4b6e22d0e47e69a5df87095deb2c9
+              created: 1748971308832
+              modified: 1748971976483
+              isPrivate: false
+              sortKey: -1748971311857
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+      - url: "{{ _.baseUrl }}{{ _.uri }}5e8f33f3-2aed-4a75-be0f-af2817a86088"
+        name: 00 - Query the exchange
+        meta:
+          id: req_f5d9e6c84e36490b94410a1a4b5e364b
+          created: 1748970998956
+          modified: 1748971009700
+          isPrivate: false
+          sortKey: -1747056559739
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+    environment:
+      baseUrl: http://localhost:6000
+      partnerUrl: http://localhost:7000
+      pbbUrl: http://localhost:5000
+      uri: /api/exchange/
+      exchangeToken: "{% response 'body', 'req_4f632c87a9f94195abb87dcb1540f84e',
+        'b64::JC5leGNoYW5nZV90b2tlbg==::46b', 'never', 60 %}"
+      userToken: "{% response 'body', 'req_4f632c87a9f94195abb87dcb1540f84e',
+        'b64::JC51c2VyX3Rva2Vu::46b', 'never', 60 %}"
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_2d13a27f3b4dba9e8caf4fb8ad5705edd8bb2039
+    created: 1743343450811
+    modified: 1743343450811
+environments:
+  name: Base Environment
+  meta:
+    id: env_2d13a27f3b4dba9e8caf4fb8ad5705edd8bb2039
+    created: 1743343450808
+    modified: 1744053819724
+    isPrivate: false
+  data:
+    baseUrl: http://localhost:5000/api
