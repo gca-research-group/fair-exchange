@@ -4,13 +4,15 @@ meta:
   id: wrk_bd368529e37b429099a78f12d1174f93
   created: 1743343450804
   modified: 1744051379155
+  description: ""
 collection:
   - name: App B
     meta:
       id: fld_aa86dcb61818418c8583a0bd8c2afb5f
       created: 1743343485505
-      modified: 1748970774363
+      modified: 1749213939427
       sortKey: -1743343485505
+      description: ""
     children:
       - name: Handshake
         meta:
@@ -18,6 +20,7 @@ collection:
           created: 1746554957943
           modified: 1746555136521
           sortKey: -1746554957943
+          description: ""
         children:
           - url: "{{ _.baseUrl }}{{ _.uri }}"
             name: 01 - Create
@@ -26,6 +29,7 @@ collection:
               created: 1743343512283
               modified: 1746554976561
               isPrivate: false
+              description: ""
               sortKey: -1746554966110
             method: POST
             headers:
@@ -46,6 +50,7 @@ collection:
               created: 1743346457673
               modified: 1746554966300
               isPrivate: false
+              description: ""
               sortKey: -1746554966210
             method: GET
             headers:
@@ -60,12 +65,13 @@ collection:
                 store: true
               rebuildPath: true
           - url: "{{ _.baseUrl }}{{ _.uri }}{{ _.exchangeToken }}/public-key"
-            name: 02 - Send the public key
+            name: 03 - Send the public key
             meta:
               id: req_b29bc0295ea94b13bdd08ccf46226fb6
               created: 1744053049714
-              modified: 1748893658858
+              modified: 1749214199752
               isPrivate: false
+              description: ""
               sortKey: -1746554966010
             method: POST
             headers:
@@ -79,13 +85,14 @@ collection:
                 send: true
                 store: true
               rebuildPath: true
-          - url: "{{partnerUrl}}{{ _.uri }}{{ _.exchangeToken }}/public-key"
+          - url: "{{ _.partnerUrl }}{{ _.uri }}{{ _.exchangeToken }}/handshake"
             name: 02 - Post to Alice
             meta:
               id: req_c580aa5eea4b4e1fb3aed348ef4bfae9
               created: 1748893166305
-              modified: 1748893169089
+              modified: 1749213976622
               isPrivate: false
+              description: ""
               sortKey: -1746554966060
             method: POST
             headers:
@@ -105,14 +112,16 @@ collection:
           created: 1746555080848
           modified: 1746555182932
           sortKey: -1742490886437.125
+          description: ""
         children:
           - url: "{{ _.baseUrl }}{{ _.uri }}{{ _.exchangeToken }}/send-item"
-            name: 03 - Send the item to Alice
+            name: 04 - Send the item to Alice
             meta:
               id: req_5a55403ffca74cb39e86d0c0265ea526
               created: 1744054460665
-              modified: 1748884433461
+              modified: 1749214250118
               isPrivate: false
+              description: ""
               sortKey: -1746555186159
             method: POST
             headers:
@@ -131,8 +140,9 @@ collection:
             meta:
               id: req_bc3f4821355049bdb3bf5014d707bae5
               created: 1744114068506
-              modified: 1748970587241
+              modified: 1749214254002
               isPrivate: false
+              description: ""
               sortKey: -1746555186059
             method: POST
             body:
@@ -161,8 +171,9 @@ collection:
             meta:
               id: req_206a6a5961ab49eeb3854f66bd96a55b
               created: 1748952042731
-              modified: 1748970582865
+              modified: 1749214260336
               isPrivate: false
+              description: ""
               sortKey: -1746555076134.5
             method: POST
             body:
@@ -188,8 +199,9 @@ collection:
         meta:
           id: fld_811f96571b9448b8bf66ec1eff36ca1e
           created: 1746555199525
-          modified: 1746555210633
-          sortKey: -1742337413734.6875
+          modified: 1749220096078
+          sortKey: -1742452518261.5156
+          description: ""
         children:
           - url: "{{ _.pbbUrl }}/api/exchange/{{ _.exchangeToken }}/{{ _.userToken
               }}/accept"
@@ -199,6 +211,7 @@ collection:
               created: 1744123787281
               modified: 1748970721432
               isPrivate: false
+              description: ""
               sortKey: -1746555231806
             method: PUT
             headers:
@@ -220,6 +233,7 @@ collection:
               created: 1744123912878
               modified: 1746555245860
               isPrivate: false
+              description: ""
               sortKey: -1746555231706
             method: PUT
             body:
@@ -245,7 +259,37 @@ collection:
               created: 1748952147067
               modified: 1748952309072
               isPrivate: false
+              description: ""
               sortKey: -1746555231906
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+      - name: Retreive
+        meta:
+          id: fld_ee57378610654d69bffc98341444f737
+          created: 1749220043469
+          modified: 1749220093005
+          sortKey: -1742414150085.9062
+          description: ""
+        children:
+          - url: "{{ _.pbbUrl }}{{ _.uri }}{{ _.exchangeToken }}/acceptance"
+            name: 00 - Query the acceptance queue
+            meta:
+              id: req_b808a35f9fe143a9b9b1cfafcda5efc3
+              created: 1749220043471
+              modified: 1749220043471
+              isPrivate: false
+              description: ""
+              sortKey: -1748971311857
             method: GET
             headers:
               - name: User-Agent
@@ -265,6 +309,7 @@ collection:
           created: 1744116765820
           modified: 1748893423158
           isPrivate: false
+          description: ""
           sortKey: -1746554958043
         method: GET
         headers:
@@ -283,7 +328,7 @@ collection:
       partnerUrl: http://localhost:6000
       pbbUrl: http://localhost:5000
       uri: /api/exchange/
-      exchangeToken: b98a5ab0-6478-4415-96a9-670c203d8d93
+      exchangeToken: f955376b-b34f-4836-9d29-87c1daf941eb
       userToken: "{% response 'body', 'req_14c2948b71cc43b882c7a5b7d043af40',
         'b64::JC51c2VyX3Rva2Vu::46b', 'never', 60 %}"
   - name: App A
@@ -292,6 +337,7 @@ collection:
       created: 1747056548774
       modified: 1748970765980
       sortKey: -1747056548774
+      description: ""
     children:
       - name: Handshake
         meta:
@@ -299,6 +345,7 @@ collection:
           created: 1746555660234
           modified: 1747056595951
           sortKey: -1747056559639
+          description: ""
         children:
           - url: "{{ _.baseUrl }}{{ _.uri }}"
             name: 01 - Create
@@ -307,6 +354,7 @@ collection:
               created: 1746555660235
               modified: 1746555660235
               isPrivate: false
+              description: ""
               sortKey: -1746554966110
             method: POST
             headers:
@@ -327,6 +375,7 @@ collection:
               created: 1746555660236
               modified: 1746555660236
               isPrivate: false
+              description: ""
               sortKey: -1746554966210
             method: GET
             headers:
@@ -347,6 +396,7 @@ collection:
               created: 1746555660237
               modified: 1748951518920
               isPrivate: false
+              description: ""
               sortKey: -1746554966010
             method: POST
             headers:
@@ -367,6 +417,7 @@ collection:
               created: 1748893057900
               modified: 1748893618029
               isPrivate: false
+              description: ""
               sortKey: -1746554966060
             method: POST
             headers:
@@ -386,6 +437,7 @@ collection:
           created: 1746555660239
           modified: 1747056580889
           sortKey: -1747056559614
+          description: ""
         children:
           - url: "{{ _.baseUrl }}{{ _.uri }}{{ _.exchangeToken }}/send-item"
             name: 04 - Send the item to Bob
@@ -394,6 +446,7 @@ collection:
               created: 1746555660239
               modified: 1748951528216
               isPrivate: false
+              description: ""
               sortKey: -1746555186159
             method: POST
             headers:
@@ -414,6 +467,7 @@ collection:
               created: 1746555660240
               modified: 1748970530933
               isPrivate: false
+              description: ""
               sortKey: -1746555186059
             method: POST
             body:
@@ -444,6 +498,7 @@ collection:
               created: 1748952102810
               modified: 1748970552245
               isPrivate: false
+              description: ""
               sortKey: -1746555185959
             method: POST
             body:
@@ -471,6 +526,7 @@ collection:
           created: 1746555660242
           modified: 1748951392940
           sortKey: -1747056559607.75
+          description: ""
         children:
           - url: "{{ _.pbbUrl }}/api/exchange/{{ _.exchangeToken }}/{{ _.userToken
               }}/accept"
@@ -480,6 +536,7 @@ collection:
               created: 1746555660242
               modified: 1748952955126
               isPrivate: false
+              description: ""
               sortKey: -1746555231806
             method: PUT
             headers:
@@ -501,6 +558,7 @@ collection:
               created: 1746555660243
               modified: 1748971951873
               isPrivate: false
+              description: ""
               sortKey: -1746555231706
             method: PUT
             headers:
@@ -521,6 +579,7 @@ collection:
               created: 1746555660244
               modified: 1748951260746
               isPrivate: false
+              description: ""
               sortKey: -1746555231906
             method: GET
             headers:
@@ -540,6 +599,7 @@ collection:
           created: 1748951325136
           modified: 1748951408819
           sortKey: -1747056559601.5
+          description: ""
         children:
           - url: "{{ _.pbbUrl }}{{ _.uri }}{{ _.exchangeToken }}/acceptance"
             name: 00 - Query the acceptance queue
@@ -548,6 +608,7 @@ collection:
               created: 1748971308832
               modified: 1748971976483
               isPrivate: false
+              description: ""
               sortKey: -1748971311857
             method: GET
             headers:
@@ -568,6 +629,7 @@ collection:
           created: 1748970998956
           modified: 1748971009700
           isPrivate: false
+          description: ""
           sortKey: -1747056559739
         method: GET
         headers:
