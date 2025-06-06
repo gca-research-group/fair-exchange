@@ -1,6 +1,7 @@
 import logging
 
 from flask import Flask
+from flask_migrate import Migrate
 from werkzeug.exceptions import (
     BadRequest,
     HTTPException,
@@ -11,11 +12,17 @@ from werkzeug.exceptions import (
 from project import resources
 from project.config import Config, file_handler
 from project.handlers.exception import handle_exception, handle_http_exception
+from project.repository import db
+
+migrate = Migrate()
 
 
 def create_app(config=Config):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(config)
+
+    db.init_app(app)
+    migrate.init_app(app, db)
 
     app.register_blueprint(resources.bp)
 

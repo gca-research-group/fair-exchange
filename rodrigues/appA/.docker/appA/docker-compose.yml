@@ -1,0 +1,33 @@
+services:
+  app_a_database:
+    container_name: app_a_database
+    image: postgres:17-alpine
+    ports:
+      - "5442:5432"
+    user: postgres
+    volumes:
+      - app_a_database_volume:/var/lib/postgresql/data
+    env_file:
+      - ./env/.env.database
+    networks:
+      - app_a_network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "-d", "app_a_db"]
+      interval: 30s
+      timeout: 60s
+      retries: 5
+      start_period: 80s
+
+volumes:
+  app_a_database_volume:
+    name: app_a_database_volume
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./volumes/postgres/data
+
+networks:
+  app_a_network:
+    name: app_a_network

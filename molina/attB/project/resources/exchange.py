@@ -17,7 +17,10 @@ def deposit(exchange_token: str):
     with open(f"{base_dir}/encrypted_item", "w") as item_file:
         item_file.write(data.get("encrypted_item"))
 
-    verify(data.get("values", {}))
+    try:
+        verify(data.get("doc_value", {}))
+    except ValueError as e:
+        return Response(str(e), status=400)
 
     return Response(status=200)
 

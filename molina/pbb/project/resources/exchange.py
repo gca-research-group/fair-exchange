@@ -79,10 +79,19 @@ def add_user(exchange_token, user_token):
 
     with scoped_connection() as connection:
         exchange = connection.query(Exchange).filter_by(token=exchange_token).first()
+
         if not exchange:
             raise NotFound("Exchange not found")
 
+        exchange_user = (
+            connection.query(ExchangeUser).filter_by(exchange_id=exchange.id, token=user_token).first()
+        )
+
+        if exchange_user:
+            raise BadRequest("User with this token already exists in the exchange")
+
         user = ExchangeUser(exchange_id=exchange.id, token=user_token, name=user_name)
+
         connection.add(user)
         connection.commit()
 
@@ -92,11 +101,16 @@ def add_user(exchange_token, user_token):
 @bp.route("/<string:exchange_token>/<string:user_token>/accept", methods=["PUT"])
 def accept(exchange_token, user_token):
     with scoped_connection() as connection:
-        user = connection.query(ExchangeUser).filter_by(token=user_token).first()
+        exchange = connection.query(Exchange).filter_by(token=exchange_token).first()
+
+        if not exchange:
+            raise NotFound("Exchange not found")
+
+        user = connection.query(ExchangeUser).filter_by(exchange_id=exchange.id, token=user_token).first()
         verify_if_the_user_belongs_to_exchange(exchange_token, user_token)
 
         exchange_user_acceptance = ExchangeUserAcceptance(
-            exchange_id=user.exchange_id, user_id=user.id, status=True
+            exchange_id=exchange.id, user_id=user.id, status=True
         )
         connection.add(exchange_user_acceptance)
         connection.commit()
@@ -121,10 +135,12 @@ def reject(exchange_token, user_token):
 def verify_if_the_user_belongs_to_exchange(exchange_token, user_token):
     with scoped_connection() as connection:
         exchange = connection.query(Exchange).filter_by(token=exchange_token).first()
+
         if not exchange:
             raise NotFound("Exchange not found")
 
-        user = connection.query(ExchangeUser).filter_by(token=user_token).first()
+        user = connection.query(ExchangeUser).filter_by(exchange_id=exchange.id, token=user_token).first()
+
         if not user:
             raise NotFound("User not found")
 
