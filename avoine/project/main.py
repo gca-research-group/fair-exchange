@@ -68,12 +68,14 @@ alice.do_step("Send encrypted item to Bob")
 # Step 2: Bob receives and sends receipt
 bob.do_step("Receive item and send receipt")
 
+
+
 # Step 3: Alice receives receipt and sends key
 alice.do_step("Receive receipt and send decryption key")
 
 # Step 4: Bob decrypts the item
 # bob.do_step("Decrypt item")
-time.sleep(6)
+time.sleep(2)
 
 # Step 5: Finish exchange
 alice.complete_exchange()
