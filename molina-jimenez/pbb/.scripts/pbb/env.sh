@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DATABASE_ENV_FILE="./.docker/appB/env/.env.database"
+DATABASE_ENV_FILE="./.docker/pbb/env/.env.database"
 BACKEND_ENV_FILE="./project/.env"
 
 if [ ! -f "$DATABASE_ENV_FILE" ]; then
@@ -15,8 +15,8 @@ fi
 
 POSTGRES_USER="postgres"
 POSTGRES_PASSWORD=$(date +%s%N | sha256sum | base64 | head -c 16)
-POSTGRES_DB="app_b_db"
-POSTGRES_HOST="app_b_network"
+POSTGRES_DB="pbb_db"
+POSTGRES_HOST="pbb_network"
 POSTGRES_PORT="5432"
 
 {
