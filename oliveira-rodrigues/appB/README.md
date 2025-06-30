@@ -1,73 +1,78 @@
-# Public Bulletin Board (PBB)
+# Application
 
 ## Table of Content
 
--   [Set Up](#set-up)
--   [Running the application](#running-the-application)
+-   [How to Run](#how-to-run)
+-   [License](#license)
+-   [Contact](#contact)
 
-## Set Up
+---
 
--   Required dependencies
+## How to Run
 
-    -   Docker
-    -   Python +3.11
-    -   Poetry
+> **Tip for Windows users:** Some shell scripts are provided to simplify the setup. We recommend using the **Git Bash** terminal for compatibility.
 
--   Environment variables
+### Prerequisites
 
-1. Within the `.docker/pbb/env` folder create a `.env.database` file
-2. Within the `project` folder create a `.env` file
-3. Fill them with the following values:
+-   Docker
+-   Python 3.11 or higher
+-   Poetry
 
-```.env
-# the database user
-# if you are not using the default value (`postgres`), you may need to adjust the postgres container
-POSTGRES_USER=postgres
+### Setup Steps
 
-# the database password
-POSTGRES_PASSWORD=
-
-# the database name
-POSTGRES_DB=
-
-# the database host
-# if you are running the application in a docker containter, the POSTGRES_HOST should be the name of the postgres container
-POSTGRES_HOST=
-
-# the postgres port
-POSTGRES_PORT=
-```
-
-## Running the application
-
--   Activate the environment
+1. **Clone the repository**
 
 ```sh
+git clone https://github.com/gca-research-group/fair-exchange-v2
+```
+
+2. **Set up environment variables**
+
+    - Configuration files are located in `.docker/appB/env/`.
+    - Use the example files as templates.
+    - Optionally, run the script `.scripts/appB/env.sh` to auto-fill the variables.
+
+3. **Run the database**
+
+```sh
+# PostgreSQL
+./.scripts/appB/up.sh
+```
+
+4. **Run the application**
+
+```sh
+# navigate to the project folder
+cd project
+
+# activate the environment
 poetry shell
-```
 
--   Creating the migrations
+# install the dependencies
+poetry install
 
-```sh
+# create the migrations
 flask db migrate
-```
 
--   Appying the migrations
-
-```sh
+# apply the migrations
 flask db upgrade
+
+# run the application
+task start
 ```
 
--   Running the application
+6. **Access the application**
 
-```sh
-flask run --reload
-```
+The application is available at http://localhost:7000
+
+---
 
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
+---
+
 ## Contact
 
-For any questions or issues, please open an issue on GitHub or contact the maintainers.
+If you have any questions or issues, feel free to [open an issue](https://github.com/gca-research-group/smart-contract-execution-monitoring-system/issues) or contact the maintainers.
