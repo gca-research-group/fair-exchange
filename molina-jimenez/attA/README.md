@@ -1,73 +1,57 @@
-# Public Bulletin Board (PBB)
+# Attestable
 
 ## Table of Content
 
--   [Set Up](#set-up)
--   [Running the application](#running-the-application)
+-   [How to Run](#how-to-run)
+-   [License](#license)
+-   [Contact](#contact)
 
-## Set Up
+---
 
--   Required dependencies
+## How to Run
 
-    -   Docker
-    -   Python +3.11
-    -   Poetry
+### Prerequisites
 
--   Environment variables
+-   Docker
+-   Python 3.11 or higher
+-   Poetry
 
-1. Within the `.docker/pbb/env` folder create a `.env.database` file
-2. Within the `project` folder create a `.env` file
-3. Fill them with the following values:
+### Setup Steps
 
-```.env
-# the database user
-# if you are not using the default value (`postgres`), you may need to adjust the postgres container
-POSTGRES_USER=postgres
-
-# the database password
-POSTGRES_PASSWORD=
-
-# the database name
-POSTGRES_DB=
-
-# the database host
-# if you are running the application in a docker containter, the POSTGRES_HOST should be the name of the postgres container
-POSTGRES_HOST=
-
-# the postgres port
-POSTGRES_PORT=
-```
-
-## Running the application
-
--   Activate the environment
+1. **Clone the repository**
 
 ```sh
+git clone https://github.com/gca-research-group/fair-exchange-v2
+```
+
+2. **Run the application**
+
+```sh
+# navigate to the project folder
+cd project
+
+# activate the environment
 poetry shell
+
+# install the dependencies
+poetry install
+
+# run the application
+task start
 ```
 
--   Creating the migrations
+6. **Access the application**
 
-```sh
-flask db migrate
-```
+The application is available at http://localhost:6001
 
--   Appying the migrations
-
-```sh
-flask db upgrade
-```
-
--   Running the application
-
-```sh
-flask run --reload
-```
+---
 
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
+---
+
 ## Contact
 
-For any questions or issues, please open an issue on GitHub or contact the maintainers.
+If you have any questions or issues, feel free to [open an issue](https://github.com/gca-research-group/smart-contract-execution-monitoring-system/issues) or contact the maintainers.

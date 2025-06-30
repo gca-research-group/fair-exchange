@@ -28,7 +28,6 @@ git clone https://github.com/gca-research-group/fair-exchange-v2
 
 2. **Set up environment variables**
 
-    - Provide values for MongoDB, PostgreSQL, and RabbitMQ.
     - Configuration files are located in `.docker/appA/env/`.
     - Use the example files as templates.
     - Optionally, run the script `.scripts/appA/env.sh` to auto-fill the variables.
@@ -48,6 +47,9 @@ cd project
 
 # activate the environment
 poetry shell
+
+# install the dependencies
+poetry install
 
 # create the migrations
 flask db migrate
