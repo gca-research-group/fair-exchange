@@ -1,0 +1,65 @@
+sqlalchemy.engine.Engine | [2025-06-27 15:37:11]: select pg_catalog.version()
+sqlalchemy.engine.Engine | [2025-06-27 15:37:11]: [raw sql] {}
+sqlalchemy.engine.Engine | [2025-06-27 15:37:11]: select current_schema()
+sqlalchemy.engine.Engine | [2025-06-27 15:37:11]: [raw sql] {}
+sqlalchemy.engine.Engine | [2025-06-27 15:37:11]: show standard_conforming_strings
+sqlalchemy.engine.Engine | [2025-06-27 15:37:11]: [raw sql] {}
+sqlalchemy.engine.Engine | [2025-06-27 15:37:11]: BEGIN (implicit)
+sqlalchemy.engine.Engine | [2025-06-27 15:37:11]: SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+sqlalchemy.engine.Engine | [2025-06-27 15:37:11]: [generated in 0.00020s] {'table_name': 'alembic_version', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+sqlalchemy.engine.Engine | [2025-06-27 15:37:11]: SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+sqlalchemy.engine.Engine | [2025-06-27 15:37:11]: [cached since 0.0174s ago] {'table_name': 'alembic_version', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+sqlalchemy.engine.Engine | [2025-06-27 15:37:11]: 
+CREATE TABLE alembic_version (
+	version_num VARCHAR(32) NOT NULL, 
+	CONSTRAINT alembic_version_pkc PRIMARY KEY (version_num)
+)
+
+
+sqlalchemy.engine.Engine | [2025-06-27 15:37:11]: [no key 0.00014s] {}
+sqlalchemy.engine.Engine | [2025-06-27 15:37:11]: CREATE TYPE exchangestatus AS ENUM ('ACTIVE', 'CANCELED', 'FAILED', 'FINISHED')
+sqlalchemy.engine.Engine | [2025-06-27 15:37:11]: [no key 0.00022s] {}
+sqlalchemy.engine.Engine | [2025-06-27 15:37:11]: 
+CREATE TABLE exchange (
+	token UUID NOT NULL, 
+	status exchangestatus NOT NULL, 
+	public_key TEXT, 
+	user_token UUID NOT NULL, 
+	id UUID NOT NULL, 
+	created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL, 
+	PRIMARY KEY (id), 
+	UNIQUE (token)
+)
+
+
+sqlalchemy.engine.Engine | [2025-06-27 15:37:11]: [no key 0.00026s] {}
+sqlalchemy.engine.Engine | [2025-06-27 15:37:11]: INSERT INTO alembic_version (version_num) VALUES ('e3dbac16a376') RETURNING alembic_version.version_num
+sqlalchemy.engine.Engine | [2025-06-27 15:37:11]: [generated in 0.00011s] {}
+sqlalchemy.engine.Engine | [2025-06-27 15:37:11]: COMMIT
+sqlalchemy.engine.Engine | [2025-06-27 16:06:14]: select pg_catalog.version()
+sqlalchemy.engine.Engine | [2025-06-27 16:06:14]: [raw sql] {}
+sqlalchemy.engine.Engine | [2025-06-27 16:06:14]: select current_schema()
+sqlalchemy.engine.Engine | [2025-06-27 16:06:14]: [raw sql] {}
+sqlalchemy.engine.Engine | [2025-06-27 16:06:14]: show standard_conforming_strings
+sqlalchemy.engine.Engine | [2025-06-27 16:06:14]: [raw sql] {}
+sqlalchemy.engine.Engine | [2025-06-27 16:06:14]: BEGIN (implicit)
+sqlalchemy.engine.Engine | [2025-06-27 16:06:14]: INSERT INTO exchange (token, status, public_key, user_token, id, created_at) VALUES (%(token)s::UUID, %(status)s, %(public_key)s, %(user_token)s::UUID, %(id)s::UUID, %(created_at)s)
+sqlalchemy.engine.Engine | [2025-06-27 16:06:14]: [generated in 0.00027s] {'token': UUID('4a204db2-089e-49ea-bbf1-a04029c217fc'), 'status': 'ACTIVE', 'public_key': None, 'user_token': UUID('42a03b79-a071-42a0-a172-d98fa724aa83'), 'id': UUID('a05dd7be-7dd6-496a-949f-92536565f0e0'), 'created_at': datetime.datetime(2025, 6, 27, 16, 6, 14, 427630)}
+sqlalchemy.engine.Engine | [2025-06-27 16:06:14]: COMMIT
+sqlalchemy.engine.Engine | [2025-06-27 16:08:18]: select pg_catalog.version()
+sqlalchemy.engine.Engine | [2025-06-27 16:08:18]: [raw sql] {}
+sqlalchemy.engine.Engine | [2025-06-27 16:08:18]: select current_schema()
+sqlalchemy.engine.Engine | [2025-06-27 16:08:18]: [raw sql] {}
+sqlalchemy.engine.Engine | [2025-06-27 16:08:18]: show standard_conforming_strings
+sqlalchemy.engine.Engine | [2025-06-27 16:08:18]: [raw sql] {}
+sqlalchemy.engine.Engine | [2025-06-27 16:08:18]: BEGIN (implicit)
+sqlalchemy.engine.Engine | [2025-06-27 16:08:18]: SELECT exchange.token AS exchange_token, exchange.status AS exchange_status, exchange.public_key AS exchange_public_key, exchange.user_token AS exchange_user_token, exchange.id AS exchange_id, exchange.created_at AS exchange_created_at 
+FROM exchange 
+WHERE exchange.token = %(token_1)s::UUID 
+ LIMIT %(param_1)s
+sqlalchemy.engine.Engine | [2025-06-27 16:08:18]: [generated in 0.00041s] {'token_1': '5e8f33f3-2aed-4a75-be0f-af2817a86088', 'param_1': 1}
+sqlalchemy.engine.Engine | [2025-06-27 16:08:18]: ROLLBACK
