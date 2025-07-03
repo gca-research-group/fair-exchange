@@ -37,7 +37,12 @@ contract FairExchangePbb {
         _;
     }
 
-    function accept() external onlyParty notRejected {
+    modifier accepted() {
+        require(!(partyA.status == Status.Accepted && partyB.status == Status.Accepted), "Both parties have accepted the exchange");
+        _;
+    }
+
+    function accept() external onlyParty notRejected accepted {
         if (msg.sender == partyA.account) {
             partyA.status = Status.Accepted;
         }
@@ -47,7 +52,7 @@ contract FairExchangePbb {
         }
     }
 
-    function reject() external onlyParty notRejected {
+    function reject() external onlyParty notRejected accepted {
         if (msg.sender == partyA.account) {
             partyA.status = Status.Rejected;
         }
