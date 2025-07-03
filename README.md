@@ -20,15 +20,28 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 </ol>
 
 
-<h1>Propriedades da Arquitetura do Molina</h1>
+<h1>Properties of Molina's Architecture</h1>
 
 <ul>
+<li> Strong Fairness;</li>
+<li> Non-performance disputes;</li>
+<li> Strong Timeliness</li>
+<li> Symmetric</li>
+<li> Invisible</li>
+<li> Non-invasive</li>
 <li> </li>
 <li> </li>
 <li> </li>
-<li> </li>
-<li> </li>
-<li> </li>
+</ul>
+
+<h1>Assumptions of Molina's Architecture</h1>
+
+<ul>
+<li> The items are copyable;</li> 
+<li> The PBB and the participants' attestables are free from accidental technical failure threats;</li>
+<li> The PBB provides timestamping features to facilitate operations;</li>
+<li> AppA and AppB can be controlled by their respective owners;</li>
+<li> The applications are responsible for posting and retrieving tokens from the PBB.</li>
 </ul>
 
 <h1>KiT's Architecture:</h1>
