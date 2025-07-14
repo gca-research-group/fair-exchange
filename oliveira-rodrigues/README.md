@@ -1,16 +1,20 @@
 # Smart Fair Exchange
 
-<p>This repository contains the implementation of a Fair Exchange protocol. The main component is a Solidity smart contract that implements a Public Bulletin Board (PBB).</p>
+This repository contains a fair exchange implementation between two parties: Alice and Bob. It includes their applications ([appA](./appA/) for Alice, [appB](./appB/) for Bob) and attestable services ([attA](./attA/) for Alice, [attB](./attB/) for Bob). The core component is a [Solidity smart contract](./pbb.sol) implementing the Public Bulletin Board (PBB) logic.
 
 ## How to Execute
 
-> In this example, we will use the [Remix IDE](https://remix.ethereum.org).
+> **Note**: This guide focuses on smart contract deployment. For application and attestable setup, see their respective folders.
+
+> **Important**: The synchronization protocol can be validated using only the smart contract, without running applications or attestables.
+
+> **Recommended**: Use [Remix IDE](https://remix.ethereum.org) for testing.
 
 ### Upload
 
-- Go to the "File Explorer" section.
-- Open the contracts folder.
-- Press the "Open from your file system" button and upload the [pbb.sol](./pbb.sol) file.
+1. Navigate to the "File Explorer" section
+2. Open the contracts folder
+3. Click "Open from your file system" button and upload the [pbb.sol](./pbb.sol) file
 
 ### Compile
 
@@ -33,4 +37,4 @@
   - SB: Party B accepts the exchange
   - CB: Party B rejects the exchange
 
-> Use the `release` method to view the current state of the smart contract
+> **Tip**: Call the `release` method anytime to check the current state of both parties.
