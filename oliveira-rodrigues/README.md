@@ -10,7 +10,7 @@
 
 - Go to the "File Explorer" section.
 - Open the contracts folder.
-- Press the "Open from your file system" button and upload the pbb.sol file.
+- Press the "Open from your file system" button and upload the [pbb.sol](./pbb.sol) file.
 
 ### Compile
 
