@@ -1,11 +1,5 @@
 # Fair Exchange
 
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-## Contact
-
 <h1>Molina's Architecture:</h1>
 
 <img src="/images/architecture(Molina).jpg" alt="Molina's Architecture">
@@ -86,4 +80,8 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 </ol>
 
 
-<h1>Arquitetura :</h1>
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Contact
