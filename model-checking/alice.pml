@@ -39,6 +39,7 @@ proctype alices_fsm()
     printf("\n S_ali_wish2canc: %e \n", token);
     pbbLog[pbbLogIndex]=token;
     pbbLogIndex++;
+
     if
     :: token == sync_a   -> goto S_ali_wish2canc
     :: token == cancel_a -> goto S_ali_wish2canc
@@ -46,15 +47,12 @@ proctype alices_fsm()
 	:: token == cancel_b -> goto End_S_cancel
     fi;
 
-    End_S_success:
+    End_S_success: cha?token ->
 	printf("\n End_S_success: %e \n", token);
-    if
-    :: pbbLogIndex <= (MAX_NUM_TOKENS * 2) - 1 ->
-        pbbLog[pbbLogIndex]=token;
-        pbbLogIndex++;
-    fi
-
     succ = 1;
+    pbbLog[pbbLogIndex]=token;
+    pbbLogIndex++;
+
     do 
 	:: token == sync_a   -> goto End_S_success
 	:: token == sync_b   -> goto End_S_success
@@ -62,14 +60,12 @@ proctype alices_fsm()
 	:: token == cancel_b -> goto End_S_success
 	od;
 
-    End_S_cancel: 
+    End_S_cancel: cha?token ->
 	printf("\n End_S_cancel: %e \n", token);
-    if
-    :: pbbLogIndex <= (MAX_NUM_TOKENS * 2) - 1 ->
-        pbbLog[pbbLogIndex]=token;
-        pbbLogIndex++;
-    fi
     canc = 1;
+    pbbLog[pbbLogIndex]=token;
+    pbbLogIndex++;
+
 	do
 	:: token == sync_a   -> goto End_S_cancel
 	:: token == sync_b   -> goto End_S_cancel
@@ -82,13 +78,22 @@ proctype ali()
 {
     mtype token;
     byte num_tokens = 0;
+    mtype last_token;
 
     do
     :: num_tokens < MAX_NUM_TOKENS ->
+
         if
         :: token = sync_a
         :: token = cancel_a
         fi;
+
+        if
+        :: last_token == sync_a -> token = cancel_a
+        :: last_token == cancel_a -> token = sync_a
+        :: !last_token -> last_token = token
+        fi;
+
         cha!token;
         num_tokens++
     :: num_tokens >= MAX_NUM_TOKENS -> break;
@@ -99,6 +104,7 @@ proctype bob()
 {
     mtype token;
     byte num_tokens = 0;
+    mtype last_token;
 
     do
     :: num_tokens < MAX_NUM_TOKENS ->
@@ -106,6 +112,13 @@ proctype bob()
         :: token = sync_b
         :: token = cancel_b
         fi;
+
+        if
+        :: last_token == sync_b -> token = cancel_b
+        :: last_token == cancel_b -> token = sync_b
+        :: !last_token -> last_token = token
+        fi;
+
         cha!token;
         num_tokens++
     :: num_tokens >= MAX_NUM_TOKENS -> break;
@@ -119,11 +132,11 @@ init {
 }
 
 never {    /* <> (succ || canc) */
-T0_init:
-    do
-    :: atomic { ((succ || canc)) -> goto accept_all }
-    :: (1) -> goto T0_init
-    od;
-accept_all:
-    skip
+    T0_init:
+        do
+        :: atomic { ((succ || canc)) -> goto accept_all }
+        :: (1) -> goto T0_init
+        od;
+    accept_all:
+        skip
 }
