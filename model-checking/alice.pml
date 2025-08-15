@@ -48,6 +48,12 @@ proctype alices_fsm()
 
     End_S_success:
 	printf("\n End_S_success: %e \n", token);
+    if
+    :: pbbLogIndex <= (MAX_NUM_TOKENS * 2) - 1 ->
+        pbbLog[pbbLogIndex]=token;
+        pbbLogIndex++;
+    fi
+
     succ = 1;
     do 
 	:: token == sync_a   -> goto End_S_success
@@ -58,6 +64,11 @@ proctype alices_fsm()
 
     End_S_cancel: 
 	printf("\n End_S_cancel: %e \n", token);
+    if
+    :: pbbLogIndex <= (MAX_NUM_TOKENS * 2) - 1 ->
+        pbbLog[pbbLogIndex]=token;
+        pbbLogIndex++;
+    fi
     canc = 1;
 	do
 	:: token == sync_a   -> goto End_S_cancel
@@ -92,8 +103,8 @@ proctype bob()
     do
     :: num_tokens < MAX_NUM_TOKENS ->
         if
-        :: token = cancel_b
         :: token = sync_b
+        :: token = cancel_b
         fi;
         cha!token;
         num_tokens++
@@ -103,17 +114,16 @@ proctype bob()
 
 init {
     run alices_fsm();
-    run ali();
     run bob();
+    run ali();
 }
 
-
-never  {    /* <> (succ == 1 || canc == 1) */
+never {    /* <> (succ || canc) */
 T0_init:
-        do
-        :: atomic { ((succ == 1 || canc == 1)) -> assert(!((succ == 1 || canc == 1))) }
-        :: (1) -> goto T0_init
-        od;
+    do
+    :: atomic { ((succ || canc)) -> goto accept_all }
+    :: (1) -> goto T0_init
+    od;
 accept_all:
-        skip
+    skip
 }

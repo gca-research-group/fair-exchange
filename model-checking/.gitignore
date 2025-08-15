@@ -1,9 +1,4 @@
 *.trail
 
 .venv
-*.b
-*.c
-*.h
-*.m
-*.p
-*.t
+pan.*

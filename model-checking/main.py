@@ -53,14 +53,15 @@ def verify_trail_files(folder: str, promela_file: str) -> None:
 
     for page in pages:
         print(f"Verifying the trail file {page}...")
-        command = f"spin -t{page} -r -B {promela_file}"
         command = f"spin -t{page} {promela_file}"
 
         result = subprocess.run(command, shell=True, capture_output=True, text=True)
 
-        # if not "End_S_success" in str(result.stdout) and not "End_S_cancel" in str(result.stdout):
         if not "valid end state" in str(result.stdout):
             logging.error(f"Model checking failed for page {page}: {command}.")
+
+        # if "pbbLog[0] = cancel_a" in str(result.stdout) and "pbbLog[2] = cancel_b" in str(result.stdout):
+        #     print(f"Trail file {page} verified: End_S_cancel")
 
 BASE_DIR = './'
 PROMELA_FILE = 'alice.pml'
