@@ -78,20 +78,13 @@ proctype ali()
 {
     mtype token;
     byte num_tokens = 0;
-    mtype last_token;
 
     do
-    :: num_tokens < MAX_NUM_TOKENS ->
+    :: num_tokens < MAX_NUM_TOKENS - 1 ->
 
         if
         :: token = sync_a
         :: token = cancel_a
-        fi;
-
-        if
-        :: last_token == sync_a -> token = cancel_a
-        :: last_token == cancel_a -> token = sync_a
-        :: !last_token -> last_token = token
         fi;
 
         cha!token;
@@ -104,19 +97,12 @@ proctype bob()
 {
     mtype token;
     byte num_tokens = 0;
-    mtype last_token;
 
     do
-    :: num_tokens < MAX_NUM_TOKENS ->
+    :: num_tokens < MAX_NUM_TOKENS - 1->
         if
         :: token = sync_b
         :: token = cancel_b
-        fi;
-
-        if
-        :: last_token == sync_b -> token = cancel_b
-        :: last_token == cancel_b -> token = sync_b
-        :: !last_token -> last_token = token
         fi;
 
         cha!token;
